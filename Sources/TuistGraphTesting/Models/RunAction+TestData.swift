@@ -13,7 +13,8 @@ extension RunAction {
         filePath: AbsolutePath? = nil,
         arguments: Arguments? = Arguments.test(),
         options: RunActionOptions = .init(),
-        diagnosticsOptions: Set<SchemeDiagnosticsOption> = [.mainThreadChecker, .performanceAntipatternChecker]
+        diagnosticsOptions: Set<SchemeDiagnosticsOption> = [.mainThreadChecker, .performanceAntipatternChecker],
+        expandVariableFromTarget: TargetReference? = nil
     ) -> RunAction {
         RunAction(
             configurationName: configurationName,
@@ -25,7 +26,9 @@ extension RunAction {
             filePath: filePath,
             arguments: arguments,
             options: options,
-            diagnosticsOptions: diagnosticsOptions
+            diagnosticsOptions: diagnosticsOptions,
+            expandVariableFromTarget: expandVariableFromTarget
         )
     }
 }
+

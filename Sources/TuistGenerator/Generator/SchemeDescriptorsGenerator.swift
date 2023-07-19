@@ -439,6 +439,22 @@ final class SchemeDescriptorsGenerator: SchemeDescriptorsGenerating {
                 macroExpansion = buildableReference
             }
         }
+        
+        if let expandVariableFromTarget = scheme.runAction?.expandVariableFromTarget {
+            guard let graphTarget = graphTraverser.target(
+                path: expandVariableFromTarget.projectPath,
+                name: expandVariableFromTarget.name
+            ) else { return nil }
+            
+            guard let buildableReference = try createBuildableReference(
+                graphTarget: graphTarget,
+                graphTraverser: graphTraverser,
+                rootPath: rootPath,
+                generatedProjects: generatedProjects
+            ) else { return nil }
+            
+            macroExpansion = buildableReference
+        }
 
         var commandlineArguments: XCScheme.CommandLineArguments?
         var environments: [XCScheme.EnvironmentVariable]?
@@ -941,3 +957,4 @@ extension TestAction {
         )
     }
 }
+
