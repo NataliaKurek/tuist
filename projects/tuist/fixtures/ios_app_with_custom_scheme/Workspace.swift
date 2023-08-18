@@ -34,7 +34,11 @@ let customAppScheme = Scheme(
             target: "Framework2Tests"
         )),
     ]),
-    runAction: .runAction(executable: .project(path: "App", target: "App")),
+    runAction: .runAction(
+        executable: .project(path: "App", target: "App"),
+        arguments: Arguments(environment: ["path": "$(SRCROOT)"], launchArguments: []),
+        expandVariableFromTarget: .project(path: "Frameworks/Framework1", target: "Framework1")
+    ),
     archiveAction: .archiveAction(configuration: "Debug", customArchiveName: "Something2")
 )
 
